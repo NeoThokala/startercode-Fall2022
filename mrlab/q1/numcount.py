@@ -1,14 +1,19 @@
 from mrjob.job import MRJob   # MRJob version
 
 # Change the class name!!
-class WordCount(MRJob):  #MRJob version
+class WordCounter(MRJob):  #MRJob version
     def mapper(self, key, line):
-        words = line.split()
-        for w in words:
-            yield (w, 1)
+     _txt=line.split()
+    _dict={}
+    for word in _txt:
+        x=0
+        for letter in word:
+               x++
+        _dict[x]=_dict.get(x,0)+ 1
+    return _dict
 
     def reducer(self, key, values):
         yield (key, sum(values))
 
 if __name__ == '__main__':
-    WordCount.run()   # MRJob version
+    WordCounter.run()   # MRJob version
